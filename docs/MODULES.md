@@ -2,62 +2,38 @@
 
 SkillBridge is organized as a modular monolith. Each module owns its user-facing workflow and exposes data to the matching and analytics layers through stable interfaces.
 
-## MVP delivery status
+## Hackathon Delivery Status (All 9 Modules Complete)
 
-| Module | MVP capability | Status |
+| Module | Core Capability | Status |
 | --- | --- | --- |
-| Student | Skill profile, readiness, gap analysis, learning path, opportunity discovery | Interactive demo complete |
-| Industry | Company onboarding, opportunity posting, skill requirements, candidate shortlisting | Interactive demo complete |
-| Institution | Student cohort view, skill-gap analytics, placement readiness | Interactive demo complete |
-| Faculty | Student monitoring, progress, mentoring and collaboration | Interactive demo complete |
-| Smart automation | Skill mapping, gap detection, explainable opportunity match | React + Express demo logic complete |
-| Opportunities | Internship, placement, training and projects catalogue | Demo listing complete |
-| Collaboration | Mentorship, industry projects and research collaboration | Planned |
-| Dashboards | Student readiness and momentum dashboard | Student dashboard complete |
-| Security and admin | Authentication, RBAC, validation and document protection | Backend foundation planned |
+| **1. Student** | Skill profile, dynamic readiness index, skill map, assessment runner, resume extractor, application tracking | **Complete** |
+| **2. Industry** | Company onboarding, opportunity posting with live match preview, candidate discovery, candidate drawer, application pipeline | **Complete** |
+| **3. Institution** | Cohort readiness telemetry, department drilldowns, curriculum skill-gap analytics, partner invitations, report exports | **Complete** |
+| **4. Faculty** | Assigned mentee monitoring, readiness tracking, targeted pathway nudges, office hour scheduling, collaboration queue | **Complete** |
+| **5. Smart Automation** | NLP skill extraction, resume parser, explainable matching, learning recommendation engine | **Complete** |
+| **6. Opportunities** | Internships, placements, training, projects, and fellowship catalogue with multi-filter search | **Complete** |
+| **7. Collaboration** | Academia ↔ Industry joint research, project proposals, student enrollment, and Ayush innovation hub | **Complete** |
+| **8. Dashboards** | Custom-tailored role dashboards for Student, Industry, Institution, and Faculty with live analytics | **Complete** |
+| **9. Security & Admin** | JWT auth, bcrypt hashing, RBAC middleware, hybrid storage (Mongoose + offline in-memory fallback) | **Complete** |
 
-## Module responsibilities
+---
 
-### Student
+## Module Responsibilities
 
-Owns student identity, academic details, skills, assessments, projects, certifications, portfolio, opportunity applications, and application status. The student dashboard is the primary entry point for the current MVP.
+### 1. Student
+Owns student identity, academic details, skills, assessments, projects, certifications, portfolio, opportunity applications, and 4-stage application status (`Submitted` $\rightarrow$ `Reviewing` $\rightarrow$ `Shortlisted` $\rightarrow$ `Selected`).
 
-### Industry
+### 2. Industry
+Owns organization profiles, opportunity creation with eligibility cutoffs, candidate discovery with live skill matching, candidate shortlisting drawers, and hiring decisions.
 
-Owns organization profiles and opportunity creation. Every opportunity defines skills and eligibility, then consumes matching results to discover, rank, shortlist, and manage candidates.
+### 3. Institution and Faculty
+Institution accounts view cohort-level trends, readiness, internship progress, and partner activity. Faculty accounts view their assigned students, support progress, send targeted pathway nudges, and coordinate joint research.
 
-### Institution and Faculty
+### 4. Smart Automation Layer
+- **Skill Extraction:** Canonical taxonomy mapping software, cloud, and specialized Ayush health informatics competencies.
+- **Resume Parser:** Transforms raw resumes and projects into structured candidate evidence.
+- **Explainable Matcher:** Evaluates covered competencies, missing gaps, and batch/CGPA eligibility.
+- **Learning Recommendations:** Generates prioritized "NOW / NEXT / THEN" milestones.
 
-Institution accounts view cohort-level trends, readiness, internship progress, and partner activity. Faculty accounts view their assigned students, support progress, and coordinate mentorship, research, and industry connections.
-
-### Smart Automation
-
-Normalizes skills from profiles, projects, assessments, and resumes; compares them with requirement sets; detects gaps; recommends learning; and returns an explainable match result. A match must always show the covered skills and the missing skills.
-
-### Opportunity and Collaboration
-
-Holds internships, placements, training, projects, and industry programs. Collaboration is a distinct workflow for mentorship, sponsored projects, research, and institution-industry partnerships.
-
-## Data contracts
-
-```text
-Student skill profile + assessment + portfolio
-  -> normalized skill evidence
-  -> SkillGapAnalysis(target role or opportunity)
-  -> LearningRecommendation[]
-  -> OpportunityMatch[] { score, coveredSkills, missingSkills, explanation }
-  -> Application
-```
-
-```text
-Industry opportunity + skills + eligibility
-  -> CandidateMatch[] { score, evidence, gaps }
-  -> shortlist / application decision
-```
-
-## Suggested implementation sequence
-
-1. Persist authentication, roles, students, skills, opportunities, applications, and matches.
-2. Add the industry opportunity-posting and candidate-ranking workflow.
-3. Add institution analytics based on the same normalized skill and match records.
-4. Add faculty monitoring, collaboration workflows, document handling, and role-based administration.
+### 5. Collaboration & Opportunities
+Holds internships, placements, training, capstones, and joint academia-industry research projects (e.g. AI diagnostic frameworks and herbal supply chain traceability).
